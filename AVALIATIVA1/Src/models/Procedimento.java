@@ -13,6 +13,10 @@ public class Procedimento {
         this.complexidade=complexidade;
     }
 
+    public void exibir(){
+        System.out.println("Procedimento: " + nome + " | Duracao: " + duracaoEstimada + " min | Valor: R$ " + valor + " | Complexidade: " + complexidade);
+    }
+
 
     public String getNome() {
         return nome;
@@ -38,5 +42,5 @@ public class Procedimento {
     public void setComplexidade(String complexidade) {
         this.complexidade = complexidade;
     }
-    
+
 }

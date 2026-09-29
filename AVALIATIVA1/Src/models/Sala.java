@@ -17,10 +17,44 @@ public class Sala {
         this.bloco = bloco;
         this.capacidadeMax = capacidadeMax;
         this.tipo = tipo;
+        this.atendimentos = new ArrayList<>();
     }
 
-    public void addAtendimento(Atendimento atendimento){
+    public boolean atribuirVeterinario(Veterinario veterinario){
+        if (veterinario.getSala() != null) {
+            return false;
+        }
+        if (this.veterinario != null) {
+            this.veterinario.atribuirSala(null);
+        }
+        this.veterinario = veterinario;
+        veterinario.atribuirSala(this);
+        return true;
+    }
+
+    public boolean addAtendimento(Atendimento atendimento){
+        if (!atendimento.getStatus().equals("agendado")) {
+            return false;
+        }
+        if (veterinario == null) {
+            return false;
+        }
+        if (atendimentos.size() >= capacidadeMax) {
+            return false;
+        }
+        if (!atendimentos.isEmpty()) {
+            String procedimentoDaSala = atendimentos.get(0).getProcedimento().getNome();
+            if (!procedimentoDaSala.equalsIgnoreCase(atendimento.getProcedimento().getNome())) {
+                return false;
+            }
+        }
         atendimentos.add(atendimento);
+        atendimento.iniciar(this);
+        return true;
+    }
+
+    public void removerAtendimento(Atendimento atendimento){
+        atendimentos.remove(atendimento);
     }
 
     public void exibirAtendimentos(){
@@ -30,11 +64,16 @@ public class Sala {
     }
 
     public void exibirQtdAtendimentos(){
-        int contador = 0;
-        for (Atendimento atendimento : atendimentos) {
-            contador+=1;
+        System.out.println("total de atendimentos nessa sala: "+ atendimentos.size());
+    }
+
+    public void exibir(){
+        System.out.println("Sala " + numero + " | Bloco " + bloco + " | Capacidade: " + capacidadeMax + " | Tipo: " + tipo);
+        if (veterinario == null) {
+            System.out.println("Veterinario: nenhum");
+        } else {
+            veterinario.exibir();
         }
-        System.out.println("total de atendimentos nessa sala: "+ contador);
     }
 
 
@@ -67,10 +106,10 @@ public class Sala {
     public ArrayList<Atendimento> getAtendimentos() {
         return atendimentos;
     }
-    public void setAtendimentos(ArrayList<Atendimento> atendimentos) {
-        this.atendimentos = atendimentos;
+    public Veterinario getVeterinario() {
+        return veterinario;
     }
 
 
-    
+
 }

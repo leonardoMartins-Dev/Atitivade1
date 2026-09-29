@@ -5,10 +5,10 @@ public class Veterinario{
     private String nome;
     private String cpf;
     private String especialidade;
-    private int telefone;
+    private String telefone;
     private Sala sala;
 
-    public Veterinario(String nome, String cpf, String especialidade, int telefone) {
+    public Veterinario(String nome, String cpf, String especialidade, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.especialidade = especialidade;
@@ -17,6 +17,10 @@ public class Veterinario{
 
     public void atribuirSala(Sala sala){
         this.sala = sala;
+    }
+
+    public void exibir(){
+        System.out.println("Veterinario: " + nome + " | CPF: " + cpf + " | Especialidade: " + especialidade + " | Telefone: " + telefone);
     }
 
 
@@ -40,19 +44,16 @@ public class Veterinario{
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
     public Sala getSala() {
         return sala;
     }
-    public void setSala(Sala sala) {
-        this.sala = sala;
-    }
 
 
-    
+
 }
